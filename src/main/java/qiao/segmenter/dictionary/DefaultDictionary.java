@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CNDictionary implements Dictionary{
+public class DefaultDictionary implements Dictionary{
     private final Node root = new Node();
 
     @Override
@@ -91,9 +91,5 @@ public class CNDictionary implements Dictionary{
                 }
             }
         }
-    }
-
-    private void matchChineseNumber(){
-
     }
 }

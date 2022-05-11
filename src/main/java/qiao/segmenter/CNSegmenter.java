@@ -14,24 +14,10 @@ public class CNSegmenter implements Segmenter {
         this.dictionary = dictionary;
     }
 
-    /**
-     * 分词模式
-     */
-    public enum SegmentMode{
-        MAX_NUM,            //细分，所有出现的词
-        MAX_WORD_LENGTH     //是词尽量的长
-    }
-
     @Override
-    public List<Word> match(String sentence, SegmentMode mode) {
-        switch (mode){
-            case MAX_NUM: return matchAllWord(sentence);
-            case MAX_WORD_LENGTH: return matchLongestWord(sentence);
-        }
-
-        throw new UnsupportedOperationException();
+    public List<Word> match(String sentence) {
+        return matchAllWord(sentence);
     }
-
 
     private List<Word> matchAllWord(String sentence){
         List<Word> words = new ArrayList<>();

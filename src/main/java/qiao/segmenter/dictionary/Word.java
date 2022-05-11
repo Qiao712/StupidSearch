@@ -13,6 +13,8 @@ public class Word {
         IN_DICTIONARY,          //在字典文件中的词
         PREFIX_IN_DICTIONARY,   //字典中的词的前缀
         NUMBER,                 //数字
+        ENGLISH,                //英文单词
+        STOPWORD,               //省略词
         UNKNOWN,                //未知
     }
 
@@ -49,6 +51,10 @@ public class Word {
 
     public void setWordType(WordType wordType) {
         this.wordType = wordType;
+    }
+
+    public int getLength(){
+        return word.length();
     }
 
     @Override

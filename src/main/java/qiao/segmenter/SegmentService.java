@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class SegmentService {
-    private Segmenter segmenter;
-    private Dictionary dictionary;
+    private final Segmenter segmenter;
+    private final Dictionary dictionary;
 
     public SegmentService() throws IOException {
-        dictionary = new CNDictionary();
+        dictionary = new DefaultDictionary();
         segmenter = new CNSegmenter(dictionary);
         loadDictionary();
     }
@@ -27,6 +27,6 @@ public class SegmentService {
     }
 
     public List<Word> segment(String sentence){
-        return segmenter.match(sentence, CNSegmenter.SegmentMode.MAX_NUM);
+        return segmenter.match(sentence);
     }
 }

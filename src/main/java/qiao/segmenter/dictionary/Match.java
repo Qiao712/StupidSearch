@@ -55,6 +55,10 @@ public class Match {
         this.matchType = matchType;
     }
 
+    public int getLength(){
+        return end - begin;
+    }
+
     @Override
     public String toString() {
         return "Match{" +
