@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        Dictionary dictionary = new ChDictionary();
+        Dictionary dictionary = new CNDictionary();
         dictionary.loadDictionary(new File[]{new File("dictionary\\main.dic"), new File("dictionary\\preposition.dic"), new File("dictionary\\test.dic")});
         dictionary.addWord("嗨害害");
         dictionary.addWord("秘制小汉堡");
@@ -40,15 +40,15 @@ public class Test {
         Match match = dictionary.matchOne(a, 0, a.length, false);
         System.out.println(match);
 
-        Segmenter segment = new ChSegmenter(dictionary);
+        Segmenter segment = new CNSegmenter(dictionary);
         System.out.println("尽量细分:");
-        List<Word> words = segment.match(sentence, ChSegmenter.SegmentMode.MAX_NUM);
+        List<Word> words = segment.match(sentence, CNSegmenter.SegmentMode.MAX_NUM);
         for (Word word : words) {
             System.out.println(word);
         }
 
         System.out.println("尽量粗分:");
-        words = segment.match(sentence, ChSegmenter.SegmentMode.MAX_WORD_LENGTH);
+        words = segment.match(sentence, CNSegmenter.SegmentMode.MAX_WORD_LENGTH);
         for (Word word : words) {
             System.out.println(word);
         }

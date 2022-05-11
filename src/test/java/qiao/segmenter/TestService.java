@@ -3,6 +3,7 @@ package qiao.segmenter;
 import qiao.segmenter.dictionary.Word;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 public class TestService {
@@ -15,6 +16,13 @@ public class TestService {
                 "呐呐呐，你看我现在，再超神给你看啊[傲娇]";
 
         List<Word> words = segmentService.segment(sentence);
+        Comparator<Word> comparator = new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return Integer.compare(o1.getBegin(), o2.getBegin());
+            }
+        };
+        words.sort(comparator);
         for (Word word : words) {
             System.out.println(word);
         }

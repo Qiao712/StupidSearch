@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChDictionary implements Dictionary{
+public class CNDictionary implements Dictionary{
     private final Node root = new Node();
 
     @Override

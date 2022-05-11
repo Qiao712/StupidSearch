@@ -12,8 +12,8 @@ public class SegmentService {
     private Dictionary dictionary;
 
     public SegmentService() throws IOException {
-        dictionary = new ChDictionary();
-        segmenter = new ChSegmenter(dictionary);
+        dictionary = new CNDictionary();
+        segmenter = new CNSegmenter(dictionary);
         loadDictionary();
     }
 
@@ -27,6 +27,6 @@ public class SegmentService {
     }
 
     public List<Word> segment(String sentence){
-        return segmenter.match(sentence, ChSegmenter.SegmentMode.MAX_WORD_LENGTH);
+        return segmenter.match(sentence, CNSegmenter.SegmentMode.MAX_NUM);
     }
 }
