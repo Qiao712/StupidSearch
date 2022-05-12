@@ -14,8 +14,8 @@ public class CNSegmenter implements Segmenter {
     private final Dictionary dictionary = new DefaultDictionary();
 
     public CNSegmenter() throws IOException {
-        File mainDictFile = new File(DictionaryConfig.stopwordDictionary);
-        File prepositionDictFile = new File(DictionaryConfig.mainDictionary);
+        File mainDictFile = new File(DictionaryConfig.mainDictionary);
+        File prepositionDictFile = new File(DictionaryConfig.prepositionDictionary);
         dictionary.loadDictionary(new File[]{mainDictFile, prepositionDictFile});
     }
 
