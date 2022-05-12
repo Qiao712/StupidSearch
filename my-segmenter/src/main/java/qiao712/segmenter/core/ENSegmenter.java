@@ -1,10 +1,9 @@
-package qiao.segmenter;
+package qiao712.segmenter.core;
 
-import qiao.segmenter.config.DictionaryConfig;
-import qiao.segmenter.dictionary.DefaultDictionary;
-import qiao.segmenter.dictionary.Dictionary;
-import qiao.segmenter.dictionary.Match;
-import qiao.segmenter.dictionary.Word;
+import qiao712.segmenter.config.DictionaryConfig;
+import qiao712.segmenter.dictionary.DefaultDictionary;
+import qiao712.segmenter.dictionary.Dictionary;
+import qiao712.segmenter.dictionary.Word;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +13,11 @@ import java.util.List;
 /**
  * 英文分词
  */
-public class ENSegmenter implements Segmenter{
+public class ENSegmenter implements Segmenter {
     //省略词词典
     private final Dictionary stopwordDictionary = new DefaultDictionary();
 
-    ENSegmenter() throws IOException {
+    public ENSegmenter() throws IOException {
         File file = new File(DictionaryConfig.stopwordDictionary);
         stopwordDictionary.loadDictionary(new File[]{file});
     }

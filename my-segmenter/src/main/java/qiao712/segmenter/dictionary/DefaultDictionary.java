@@ -1,4 +1,4 @@
-package qiao.segmenter.dictionary;
+package qiao712.segmenter.dictionary;
 
 import java.io.*;
 import java.util.ArrayList;

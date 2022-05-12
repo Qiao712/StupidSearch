@@ -1,4 +1,4 @@
-package qiao.segmenter.dictionary;
+package qiao712.segmenter.dictionary;
 
 /**
  *
@@ -55,6 +55,10 @@ public class Word {
 
     public int getLength(){
         return word.length();
+    }
+
+    public int getEnd(){
+        return begin + word.length();
     }
 
     @Override

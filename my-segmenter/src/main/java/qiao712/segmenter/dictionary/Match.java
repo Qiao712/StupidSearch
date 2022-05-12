@@ -1,4 +1,4 @@
-package qiao.segmenter.dictionary;
+package qiao712.segmenter.dictionary;
 
 public class Match {
     //词在句中位置

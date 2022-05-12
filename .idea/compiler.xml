@@ -6,7 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SimpleSegmenter" />
+        <module name="my-segmenter" />
+        <module name="my-search" />
       </profile>
     </annotationProcessing>
   </component>

@@ -1,4 +1,4 @@
-package qiao.segmenter.util;
+package qiao712.segmenter.util;
 
 public class Range {
     private int begin;

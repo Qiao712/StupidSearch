@@ -1,6 +1,7 @@
 package qiao.segmenter;
 
-import qiao.segmenter.dictionary.Word;
+import qiao712.segmenter.SegmentService;
+import qiao712.segmenter.dictionary.Word;
 
 import java.io.IOException;
 import java.util.Comparator;

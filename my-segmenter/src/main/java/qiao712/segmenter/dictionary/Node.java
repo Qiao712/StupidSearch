@@ -1,4 +1,4 @@
-package qiao.segmenter.dictionary;
+package qiao712.segmenter.dictionary;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

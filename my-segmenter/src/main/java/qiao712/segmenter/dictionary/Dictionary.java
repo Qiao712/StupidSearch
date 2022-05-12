@@ -1,4 +1,4 @@
-package qiao.segmenter.dictionary;
+package qiao712.segmenter.dictionary;
 
 import java.io.File;
 import java.io.IOException;

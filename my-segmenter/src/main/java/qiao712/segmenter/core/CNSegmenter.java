@@ -1,17 +1,22 @@
-package qiao.segmenter;
+package qiao712.segmenter.core;
 
-import qiao.segmenter.dictionary.Dictionary;
-import qiao.segmenter.dictionary.Match;
-import qiao.segmenter.dictionary.Word;
-import qiao.segmenter.util.Range;
+import qiao712.segmenter.config.DictionaryConfig;
+import qiao712.segmenter.dictionary.DefaultDictionary;
+import qiao712.segmenter.dictionary.Dictionary;
+import qiao712.segmenter.dictionary.Match;
+import qiao712.segmenter.dictionary.Word;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class CNSegmenter implements Segmenter {
-    private final Dictionary dictionary;
+    private final Dictionary dictionary = new DefaultDictionary();
 
-    public CNSegmenter(Dictionary dictionary){
-        this.dictionary = dictionary;
+    public CNSegmenter() throws IOException {
+        File mainDictFile = new File(DictionaryConfig.stopwordDictionary);
+        File prepositionDictFile = new File(DictionaryConfig.mainDictionary);
+        dictionary.loadDictionary(new File[]{mainDictFile, prepositionDictFile});
     }
 
     @Override
@@ -23,49 +28,15 @@ public class CNSegmenter implements Segmenter {
         List<Word> words = new ArrayList<>();
         char[] charArray = sentence.toCharArray();
 
-        //匹配到的词覆盖范围的最后位置的 后驱
-        int lastPos = 0;
-        //未覆盖区域
-        List<Range> notCover = new ArrayList<>();
-
         for(int i = 0; i < charArray.length; i++){
             //匹配sentence[i]起始的所有可能的词
             List<Match> matches = dictionary.multiMatch(charArray, i, charArray.length);
 
-            //检查未覆盖区域
-            if(! matches.isEmpty()){
-                if(i > lastPos){
-                    //记录未覆盖的区域
-                    notCover.add(new Range(lastPos, i));
-                }
-            }
-
             for (Match match : matches) {
-                lastPos = Math.max(lastPos, match.getEnd());
-
                 Word word = new Word();
                 word.setWord(String.valueOf(charArray, i, match.getEnd() - i));
                 word.setWordType(Word.WordType.IN_DICTIONARY);
                 word.setBegin(i);
-                words.add(word);
-            }
-        }
-
-        //处理未被匹配的区域
-        for (Range range : notCover) {
-            for(int i = range.getBegin(); i < range.getEnd(); i++){
-                //尝试匹配前缀
-                Match match = dictionary.matchOne(charArray, i, charArray.length, false);
-
-                Word word = new Word();
-                word.setBegin(i);
-                if(match.getMatchType() == Match.MatchType.PREFIX){
-                    word.setWord(String.valueOf(charArray, i, match.getEnd() - i));
-                    word.setWordType(Word.WordType.PREFIX_IN_DICTIONARY);
-                }else if(match.getMatchType() == Match.MatchType.NONE){
-                    word.setWord(String.valueOf(charArray[i]));
-                    word.setWordType(Word.WordType.UNKNOWN);
-                }
                 words.add(word);
             }
         }

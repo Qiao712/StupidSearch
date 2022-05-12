@@ -1,4 +1,4 @@
-package qiao.segmenter.config;
+package qiao712.segmenter.config;
 
 public class DictionaryConfig {
     /**
@@ -7,4 +7,6 @@ public class DictionaryConfig {
     public static String dictionaryDirect = "dictionary";
 
     public static String stopwordDictionary = "dictionary/stopword.dic";
+    public static String mainDictionary = "dictionary/main.dic";
+    public static String prepositionDictionary = "dictionary/preposition.dic";
 }

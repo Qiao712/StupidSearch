@@ -1,15 +1,15 @@
 package qiao.segmenter;
 
 
-import qiao.segmenter.dictionary.*;
+import qiao712.segmenter.dictionary.DefaultDictionary;
+import qiao712.segmenter.dictionary.Dictionary;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        Dictionary dictionary = new CNDictionary();
+        Dictionary dictionary = new DefaultDictionary();
         dictionary.loadDictionary(new File[]{new File("dictionary\\main.dic"), new File("dictionary\\preposition.dic"), new File("dictionary\\test.dic")});
         dictionary.addWord("嗨害害");
         dictionary.addWord("秘制小汉堡");
@@ -35,22 +35,22 @@ public class Test {
 //            System.out.println(word);
 //        }
 
-        String sentence = "艾伦耶格尔君,三笠，阿克曼 埃尔文";
-        char[] a = sentence.toCharArray();
-        Match match = dictionary.matchOne(a, 0, a.length, false);
-        System.out.println(match);
-
-        Segmenter segment = new CNSegmenter(dictionary);
-        System.out.println("尽量细分:");
-        List<Word> words = segment.match(sentence, CNSegmenter.SegmentMode.MAX_NUM);
-        for (Word word : words) {
-            System.out.println(word);
-        }
-
-        System.out.println("尽量粗分:");
-        words = segment.match(sentence, CNSegmenter.SegmentMode.MAX_WORD_LENGTH);
-        for (Word word : words) {
-            System.out.println(word);
-        }
+//        String sentence = "艾伦耶格尔君,三笠，阿克曼 埃尔文";
+//        char[] a = sentence.toCharArray();
+//        Match match = dictionary.matchOne(a, 0, a.length, false);
+//        System.out.println(match);
+//
+//        Segmenter segment = new CNSegmenter(dictionary);
+//        System.out.println("尽量细分:");
+//        List<Word> words = segment.match(sentence, CNSegmenter.SegmentMode.MAX_NUM);
+//        for (Word word : words) {
+//            System.out.println(word);
+//        }
+//
+//        System.out.println("尽量粗分:");
+//        words = segment.match(sentence, CNSegmenter.SegmentMode.MAX_WORD_LENGTH);
+//        for (Word word : words) {
+//            System.out.println(word);
+//        }
     }
 }
