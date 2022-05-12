@@ -2,7 +2,7 @@ package qiao.segmenter;
 
 import qiao712.segmenter.core.NumberSegmenter;
 import qiao712.segmenter.core.Segmenter;
-import qiao712.segmenter.dictionary.Word;
+import qiao712.segmenter.dictionary.Lexeme;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ public class TestNumberSegmenter {
         Segmenter segmenter = new NumberSegmenter();
 
         String sentence = "123xxx123一二三三二一";
-        List<Word> words = segmenter.match(sentence);
+        List<Lexeme> words = segmenter.match(sentence);
 
-        for (Word word : words) {
+        for (Lexeme word : words) {
             System.out.println(word);
         }
     }

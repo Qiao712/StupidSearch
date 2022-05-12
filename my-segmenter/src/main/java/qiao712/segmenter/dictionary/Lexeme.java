@@ -3,7 +3,7 @@ package qiao712.segmenter.dictionary;
 /**
  *
  */
-public class Word {
+public class Lexeme {
     private String word;
 
     //在字符串中的位置
@@ -20,10 +20,10 @@ public class Word {
 
     private WordType wordType;
 
-    public Word() {
+    public Lexeme() {
     }
 
-    public Word(String word, int begin, WordType wordType) {
+    public Lexeme(String word, int begin, WordType wordType) {
         this.word = word;
         this.begin = begin;
         this.wordType = wordType;

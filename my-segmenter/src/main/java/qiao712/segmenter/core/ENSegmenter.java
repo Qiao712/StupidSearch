@@ -3,7 +3,7 @@ package qiao712.segmenter.core;
 import qiao712.segmenter.config.DictionaryConfig;
 import qiao712.segmenter.dictionary.DefaultDictionary;
 import qiao712.segmenter.dictionary.Dictionary;
-import qiao712.segmenter.dictionary.Word;
+import qiao712.segmenter.dictionary.Lexeme;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,8 +23,8 @@ public class ENSegmenter implements Segmenter {
     }
 
     @Override
-    public List<Word> match(String sentence) {
-        List<Word> words = new ArrayList<>();
+    public List<Lexeme> match(String sentence) {
+        List<Lexeme> lexemes = new ArrayList<>();
 
         boolean inWord = false;
         int wordBegin = 0;
@@ -38,29 +38,36 @@ public class ENSegmenter implements Segmenter {
                     wordBegin = i;
                 }
             }else if(inWord && charArray[i] != '-' && charArray[i] != '\''){
-                //添加单词
-                Word word = new Word();
-                word.setWord(String.valueOf(charArray, wordBegin, i - wordBegin));
-                word.setBegin(wordBegin);
-
-                //是否是省略词(stopword)
-                if(stopwordDictionary.hasWord(word.getWord())){
-                    word.setWordType(Word.WordType.STOPWORD);
-                }else{
-                    word.setWordType(Word.WordType.ENGLISH);
-                }
-
-                words.add(word);
-
+                addLexeme(lexemes, charArray, wordBegin, i);
                 //单词结束
                 inWord = false;
             }
         }
 
-        return words;
+        if(inWord){
+            addLexeme(lexemes, charArray, wordBegin, charArray.length);
+        }
+
+        return lexemes;
     }
 
     private boolean isLetter(char character){
         return character >= 'A' && character <= 'Z' || character >= 'a' && character <= 'z';
+    }
+
+    private void addLexeme(List<Lexeme> lexemes, char[] charArray, int begin, int end){
+        //添加单词
+        Lexeme lexeme = new Lexeme();
+        lexeme.setWord(String.valueOf(charArray, begin, end - begin));
+        lexeme.setBegin(begin);
+
+        //是否是省略词(stopword)
+        if(stopwordDictionary.hasWord(lexeme.getWord())){
+            lexeme.setWordType(Lexeme.WordType.STOPWORD);
+        }else{
+            lexeme.setWordType(Lexeme.WordType.ENGLISH);
+        }
+
+        lexemes.add(lexeme);
     }
 }

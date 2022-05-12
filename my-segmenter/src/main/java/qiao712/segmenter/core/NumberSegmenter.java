@@ -1,6 +1,6 @@
 package qiao712.segmenter.core;
 
-import qiao712.segmenter.dictionary.Word;
+import qiao712.segmenter.dictionary.Lexeme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class NumberSegmenter implements Segmenter {
     @Override
-    public List<Word> match(String sentence) {
-        List<Word> words = new ArrayList<>();
+    public List<Lexeme> match(String sentence) {
+        List<Lexeme> lexemes = new ArrayList<>();
         char[] charArray = sentence.toCharArray();
 
         boolean inNumber = false;
@@ -25,18 +25,24 @@ public class NumberSegmenter implements Segmenter {
                     numberBegin = i;
                 }
             }else if(inNumber && charArray[i] != ','){
-                //添加单词
-                Word word = new Word();
-                word.setWord(String.valueOf(charArray, numberBegin, i - numberBegin));
-                word.setBegin(numberBegin);
-                word.setWordType(Word.WordType.NUMBER);
-                words.add(word);
-
+                addLexeme(lexemes, charArray, numberBegin, i);
                 //单词结束
                 inNumber = false;
             }
         }
 
-        return words;
+        if(inNumber){
+            addLexeme(lexemes, charArray, numberBegin, charArray.length);
+        }
+
+        return lexemes;
+    }
+
+    private void addLexeme(List<Lexeme> lexemes, char[] charArray, int begin, int end){
+        Lexeme lexeme = new Lexeme();
+        lexeme.setWord(String.valueOf(charArray, begin, end - begin));
+        lexeme.setBegin(begin);
+        lexeme.setWordType(Lexeme.WordType.NUMBER);
+        lexemes.add(lexeme);
     }
 }

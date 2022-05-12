@@ -78,8 +78,13 @@ public class DefaultDictionary implements Dictionary{
     @Override
     public void loadDictionary(File[] files) throws IOException {
         for (File file : files) {
-            try(Reader fileReader = new FileReader(file)){
-                BufferedReader reader = new BufferedReader(fileReader);
+            Reader inputStreamReader = null;
+            BufferedReader reader = null;
+            try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(file.getPath())){
+                assert inputStream != null;
+
+                inputStreamReader = new InputStreamReader(inputStream);
+                reader = new BufferedReader(inputStreamReader);
                 String line;
                 while((line = reader.readLine()) != null){
                     line = line.trim();
@@ -88,6 +93,14 @@ public class DefaultDictionary implements Dictionary{
                     }
 
                     addWord(line);
+                }
+            }finally {
+                if(reader != null){
+                    reader.close();
+                }
+
+                if(inputStreamReader != null){
+                    inputStreamReader.close();
                 }
             }
         }

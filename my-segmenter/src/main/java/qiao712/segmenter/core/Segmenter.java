@@ -1,9 +1,9 @@
 package qiao712.segmenter.core;
 
-import qiao712.segmenter.dictionary.Word;
+import qiao712.segmenter.dictionary.Lexeme;
 
 import java.util.List;
 
 public interface Segmenter {
-    List<Word> match(String sentence);
+    List<Lexeme> match(String sentence);
 }

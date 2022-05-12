@@ -4,7 +4,7 @@ import qiao712.segmenter.config.DictionaryConfig;
 import qiao712.segmenter.dictionary.DefaultDictionary;
 import qiao712.segmenter.dictionary.Dictionary;
 import qiao712.segmenter.dictionary.Match;
-import qiao712.segmenter.dictionary.Word;
+import qiao712.segmenter.dictionary.Lexeme;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +20,12 @@ public class CNSegmenter implements Segmenter {
     }
 
     @Override
-    public List<Word> match(String sentence) {
+    public List<Lexeme> match(String sentence) {
         return matchAllWord(sentence);
     }
 
-    private List<Word> matchAllWord(String sentence){
-        List<Word> words = new ArrayList<>();
+    private List<Lexeme> matchAllWord(String sentence){
+        List<Lexeme> lexemes = new ArrayList<>();
         char[] charArray = sentence.toCharArray();
 
         for(int i = 0; i < charArray.length; i++){
@@ -33,19 +33,19 @@ public class CNSegmenter implements Segmenter {
             List<Match> matches = dictionary.multiMatch(charArray, i, charArray.length);
 
             for (Match match : matches) {
-                Word word = new Word();
-                word.setWord(String.valueOf(charArray, i, match.getEnd() - i));
-                word.setWordType(Word.WordType.IN_DICTIONARY);
-                word.setBegin(i);
-                words.add(word);
+                Lexeme lexeme = new Lexeme();
+                lexeme.setWord(String.valueOf(charArray, i, match.getEnd() - i));
+                lexeme.setWordType(Lexeme.WordType.IN_DICTIONARY);
+                lexeme.setBegin(i);
+                lexemes.add(lexeme);
             }
         }
 
-        return words;
+        return lexemes;
     }
 
-    private List<Word> matchLongestWord(String sentence){
-        List<Word> words = new ArrayList<>();
+    private List<Lexeme> matchLongestWord(String sentence){
+        List<Lexeme> lexemes = new ArrayList<>();
         char[] charArray = sentence.toCharArray();
 
         int begin = 0;
@@ -53,25 +53,25 @@ public class CNSegmenter implements Segmenter {
             Match match = dictionary.matchOne(charArray, begin, charArray.length, true);
 
             if(match.getMatchType() == Match.MatchType.ALL || match.getMatchType() == Match.MatchType.PREFIX){
-                Word word = new Word();
-                word.setWord(String.valueOf(charArray, begin, match.getEnd() - begin));
-                word.setWordType(match.getMatchType() == Match.MatchType.ALL ? Word.WordType.IN_DICTIONARY : Word.WordType.PREFIX_IN_DICTIONARY);
-                word.setBegin(begin);
-                words.add(word);
+                Lexeme lexeme = new Lexeme();
+                lexeme.setWord(String.valueOf(charArray, begin, match.getEnd() - begin));
+                lexeme.setWordType(match.getMatchType() == Match.MatchType.ALL ? Lexeme.WordType.IN_DICTIONARY : Lexeme.WordType.PREFIX_IN_DICTIONARY);
+                lexeme.setBegin(begin);
+                lexemes.add(lexeme);
 
                 begin = match.getEnd();
             }else{
                 //未匹配的单字
-                Word word = new Word();
-                word.setWord(String.valueOf(charArray, begin, 1));
-                word.setWordType(Word.WordType.UNKNOWN);
-                word.setBegin(begin);
-                words.add(word);
+                Lexeme lexeme = new Lexeme();
+                lexeme.setWord(String.valueOf(charArray, begin, 1));
+                lexeme.setWordType(Lexeme.WordType.UNKNOWN);
+                lexeme.setBegin(begin);
+                lexemes.add(lexeme);
 
                 begin++;
             }
         }
 
-        return words;
+        return lexemes;
     }
 }
