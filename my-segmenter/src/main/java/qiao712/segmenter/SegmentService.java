@@ -1,6 +1,6 @@
 package qiao712.segmenter;
 
-import qiao712.segmenter.dictionary.Word;
+import qiao712.segmenter.dictionary.Lexeme;
 import qiao712.segmenter.core.Segmenter;
 import qiao712.segmenter.core.TopSegmenter;
 
@@ -14,7 +14,7 @@ public class SegmentService {
         segmenter = new TopSegmenter();
     }
 
-    public List<Word> segment(String sentence){
+    public List<Lexeme> segment(String sentence){
         return segmenter.match(sentence);
     }
 }

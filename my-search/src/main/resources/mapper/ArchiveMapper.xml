@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qiao712.search.dao.ArchiveMapper">
+    <insert id="saveArchive" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO archive(content, appendix)
+        VALUES(#{content}, #{appendix})
+    </insert>
+
+    <delete id="deleteArchive">
+        DELETE FROM archive
+        WHERE id = #{id}
+    </delete>
+</mapper>

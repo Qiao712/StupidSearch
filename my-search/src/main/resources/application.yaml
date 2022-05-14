@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: chat-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/my-search?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: lty0712
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+mybatis:
+  typeAliasesPackage: qiao712.search.domain
+  type-handlers-package: qiao712.search.dao
+  mapperLocations:
+    - classpath:mapper/**.xml
+  configuration:
+    mapUnderscoreToCamelCase: true

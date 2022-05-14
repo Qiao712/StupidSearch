@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qiao712.search.dao.InvertedIndexMapper">
+    <insert id="saveInvertedIndexes">
+        INSERT IGNORE INTO inverted_index(keyword_id, archive_id)
+        VALUES
+        <foreach collection="keywords" item="keyword" separator=",">
+            ( (SELECT id FROM keyword WHERE word = #{keyword})
+            , #{archiveId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteIndexByArchive">
+        DELETE FROM inverted_index
+        WHERE archive_id = #{archiveId}
+    </delete>
+
+    <select id="getArchiveIdsByKeyword" resultType="Long">
+        SELECT archive_id FROM inverted_index
+        WHERE keyword_id = (SELECT id FROM keyword WHERE word = #{keyword})
+    </select>
+</mapper>

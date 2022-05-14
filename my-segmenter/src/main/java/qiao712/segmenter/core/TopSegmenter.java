@@ -6,6 +6,7 @@ import qiao712.segmenter.dictionary.Lexeme;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -71,6 +72,15 @@ public class TopSegmenter implements Segmenter {
             }
         }
 
+        //去除空串,已经去除两端空白
+        Iterator<Lexeme> iterable =  lexemes.iterator();
+        while(iterable.hasNext()){
+            Lexeme lexeme = iterable.next();
+            lexeme.setWord(lexeme.getWord().trim());
+            if(lexeme.getWord().isEmpty()){
+                iterable.remove();
+            }
+        }
         return lexemes;
     }
 }
