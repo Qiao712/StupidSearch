@@ -30,12 +30,18 @@ public class SearchServiceImpl implements SearchService , InitializingBean {
 
     @Override
     @Transactional
-    public void saveArchive(String contentJson, String appendixJson) {
-        Object content = JSON.parse(contentJson);
+    public void saveArchive(String contentStr, String appendixStr) {
+        Object content = JSON.parse(contentStr);
         Set<String> keywords = new HashSet<>();
         //待处理JSONObject队列
         Queue<Object> queue = new LinkedList<>();
-        queue.add(content);
+
+        if(content != null){
+            queue.add(content);
+        }else{
+            //不是json则全字符串参与搜索
+            queue.add(contentStr);
+        }
 
         while(!queue.isEmpty()){
             Object current = queue.poll();
@@ -63,8 +69,8 @@ public class SearchServiceImpl implements SearchService , InitializingBean {
 
         //保存archive
         Archive archive = new Archive();
-        archive.setContent(contentJson);
-        archive.setAppendix(appendixJson);
+        archive.setContent(contentStr);
+        archive.setAppendix(appendixStr);
         archiveMapper.saveArchive(archive);
 
         //保存索引
