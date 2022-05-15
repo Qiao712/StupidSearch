@@ -1,3 +1,6 @@
+server:
+  port: 7120
+
 spring:
   application:
     name: chat-service

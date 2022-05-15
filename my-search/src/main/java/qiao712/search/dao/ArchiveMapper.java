@@ -11,4 +11,6 @@ public interface ArchiveMapper {
     int saveArchive(Archive archive);
 
     int deleteArchive(long id);
+
+    Archive getArchive(long id);
 }

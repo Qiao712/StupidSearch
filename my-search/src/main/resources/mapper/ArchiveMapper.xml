@@ -13,4 +13,9 @@
         DELETE FROM archive
         WHERE id = #{id}
     </delete>
+
+    <select id="getArchive" resultType="Archive">
+        SELECT id, content, appendix FROM archive
+        WHERE id = #{id}
+    </select>
 </mapper>
