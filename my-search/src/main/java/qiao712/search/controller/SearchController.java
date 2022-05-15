@@ -19,7 +19,7 @@ public class SearchController {
     }
 
     @GetMapping("/archives")
-    public SearchResult addArchive(@PathParam("search") String search, @PathParam("pageNo") Long pageNo, @PathParam("pageSize") Long pageSize){
+    public SearchResult searchArchive(@PathParam("search") String search, @PathParam("pageNo") Long pageNo, @PathParam("pageSize") Long pageSize){
         return searchService.searchArchive(search, pageNo, pageSize);
     }
 
