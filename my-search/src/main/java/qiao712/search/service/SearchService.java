@@ -7,5 +7,7 @@ public interface SearchService {
 
     void deleteArchive(long id);
 
+    void deleteArchiveByAppendix(String appendixStr);
+
     SearchResult searchArchive(String text, long pageNo, long pageSize);
 }

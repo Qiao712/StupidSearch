@@ -1,6 +1,8 @@
 package qiao712.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import javafx.scene.shape.Arc;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,14 +33,13 @@ public class SearchServiceImpl implements SearchService , InitializingBean {
     @Override
     @Transactional
     public void saveArchive(String contentStr, String appendixStr) {
-        Object content = JSON.parse(contentStr);
         Set<String> keywords = new HashSet<>();
-        //待处理JSONObject队列
-        Queue<Object> queue = new LinkedList<>();
+        Queue<Object> queue = new LinkedList<>(); //待处理JSONObject队列
 
-        if(content != null){
+        try{
+            Object content = JSON.parse(contentStr);
             queue.add(content);
-        }else{
+        }catch (JSONException e){
             //不是json则全字符串参与搜索
             queue.add(contentStr);
         }
@@ -84,6 +85,14 @@ public class SearchServiceImpl implements SearchService , InitializingBean {
     }
 
     @Override
+    public void deleteArchiveByAppendix(String appendixStr) {
+        List<Archive> archives = archiveMapper.getArchiveByAppendix(appendixStr);
+        for (Archive archive : archives) {
+            deleteArchive(archive.getId());
+        }
+    }
+
+    @Override
     @Transactional
     public SearchResult searchArchive(String text, long pageNo, long pageSize){
         List<Lexeme> lexemes = segmenter.match(text);
@@ -120,8 +129,8 @@ public class SearchServiceImpl implements SearchService , InitializingBean {
         searchResult.setItemCount(sortedArchives.size());
 
         List<Archive> archives = new ArrayList<>();
-        for (Map.Entry<Long, Integer> sortedArchive : sortedArchives) {
-            archives.add(archiveMapper.getArchive(sortedArchive.getKey()));
+        for(long i = pageSize * (pageNo-1); i < sortedArchives.size() && i < pageSize * pageNo; i++){
+            archives.add(archiveMapper.getArchive(sortedArchives.get((int)i).getKey()));
         }
         searchResult.setArchives(archives);
 

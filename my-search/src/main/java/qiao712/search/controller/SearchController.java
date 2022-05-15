@@ -23,6 +23,11 @@ public class SearchController {
         return searchService.searchArchive(search, pageNo, pageSize);
     }
 
+    @DeleteMapping("/archives")
+    public void deleteArchiveByAppendix(@PathParam("appendix") String appendix){
+        searchService.deleteArchiveByAppendix(appendix);
+    }
+
     @DeleteMapping("/archives/{id}")
     public void deleteArchive(@PathVariable("id") Long id){
         searchService.deleteArchive(id);

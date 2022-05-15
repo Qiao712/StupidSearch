@@ -59,10 +59,13 @@ public class TopSegmenter implements Segmenter {
 
             lastPos = Math.max(lastPos, lexeme.getEnd());
         }
+        //结尾的未覆盖区域
+        if(sentence.length() > lastPos){
+            notCover.add(new Range(lastPos, sentence.length()));
+        }
 
         //处理未被匹配的区域
         for (Range range : notCover) {
-            System.out.println(range.getBegin() + "," + range.getEnd());
             for(int i = range.getBegin(); i < range.getEnd(); i++){
                 Lexeme lexeme = new Lexeme();
                 lexeme.setBegin(i);

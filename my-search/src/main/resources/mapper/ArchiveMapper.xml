@@ -14,6 +14,11 @@
         WHERE id = #{id}
     </delete>
 
+    <select id="getArchiveByAppendix" resultType="qiao712.search.domain.Archive">
+        SELECT id, content, appendix FROM archive
+        WHERE appendix = #{appendix}
+    </select>
+
     <select id="getArchive" resultType="Archive">
         SELECT id, content, appendix FROM archive
         WHERE id = #{id}

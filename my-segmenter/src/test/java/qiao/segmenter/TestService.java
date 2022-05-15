@@ -15,7 +15,7 @@ public class TestService {
 //                "他直播发病的机智是精妙的，真诚和正直的朴素给人一种无法接触的高贵感，就好像永远抓不住的闪亮的星星，一个彬彬有礼的人用完美的操作给观众带来最为精致的美的感受，我不禁怀疑上帝的天意是否对我太过宠溺，让我人生中认识到如此不朽和无价的灵魂，充满着可爱与美好。\n" +
 //                "我不得不再次审视男童们，原来他们早已追随如此伟大的事物，想必他们的品行、修养也一定很好。\n" +
 //                "呐呐呐，你看我现在，再超神给你看啊[傲娇]";
-        String sentence = "world";
+        String sentence = "干";
 
         List<Lexeme> words = segmentService.segment(sentence);
         Comparator<Lexeme> comparator = new Comparator<Lexeme>() {
